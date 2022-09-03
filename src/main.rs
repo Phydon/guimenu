@@ -27,12 +27,16 @@ impl eframe::App for GuiMenu {
             ui.heading("THE Menu Application");
             ui.separator();
 
-            egui::containers::ScrollArea::vertical().show(ui, |ui| {
+            ui.vertical_centered(|ui| {
                 ui.label(egui::RichText::new("Text can have").color(egui::Color32::from_rgb(110, 255, 110)));
                 ui.colored_label(egui::Color32::from_rgb(128, 140, 255), "color"); // Shortcut version
                 ui.label("and tooltips.").on_hover_text(
                     "This is a multiline tooltip that demonstrates that you can easily add tooltips to any element.\nThis is the second line.\nThis is the third.",
                 );
+            });
+            ui.separator();
+
+            egui::containers::ScrollArea::vertical().show(ui, |ui| {
                 ui.horizontal(|ui| {
                     ui.label("Enter name: ");
                     ui.text_edit_singleline(&mut self.name);
@@ -84,7 +88,8 @@ fn calculate_it(num: u32) -> u32 {
 
 fn main() {
     let mut options = eframe::NativeOptions::default();
-    options.initial_window_size = Some(egui::Vec2::new(WINDOW_HEIGHT, WINDOW_WIDTH));
+    options.initial_window_size =
+        Some(egui::Vec2::new(WINDOW_HEIGHT, WINDOW_WIDTH));
     eframe::run_native(
         "GUI Menu",
         options,
