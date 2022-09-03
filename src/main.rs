@@ -1,10 +1,10 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 
-use eframe::{egui, epaint::Vec2};
+use eframe::egui;
 
-const WINDOW_HEIGHT: f32 = 540.0;
-const WINDOW_WIDTH: f32 = 960.0;
-const CENTER: (f32, f32) = (WINDOW_HEIGHT / 2.0, WINDOW_WIDTH / 2.0);
+const WINDOW_HEIGHT: f32 = 320.0;
+const WINDOW_WIDTH: f32 = 480.0;
+const CENTER: (f32, f32) = (WINDOW_HEIGHT * 0.5, WINDOW_WIDTH * 0.5);
 const PADDING: f32 = 20.0;
 
 #[derive(Default)]
@@ -25,9 +25,14 @@ impl eframe::App for GuiMenu {
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.heading("THE Menu Application");
-            ui.add_space(PADDING);
+            ui.separator();
 
             egui::containers::ScrollArea::vertical().show(ui, |ui| {
+                ui.label(egui::RichText::new("Text can have").color(egui::Color32::from_rgb(110, 255, 110)));
+                ui.colored_label(egui::Color32::from_rgb(128, 140, 255), "color"); // Shortcut version
+                ui.label("and tooltips.").on_hover_text(
+                    "This is a multiline tooltip that demonstrates that you can easily add tooltips to any element.\nThis is the second line.\nThis is the third.",
+                );
                 ui.horizontal(|ui| {
                     ui.label("Enter name: ");
                     ui.text_edit_singleline(&mut self.name);
@@ -79,7 +84,7 @@ fn calculate_it(num: u32) -> u32 {
 
 fn main() {
     let mut options = eframe::NativeOptions::default();
-    options.initial_window_size = Some(Vec2::new(WINDOW_HEIGHT, WINDOW_WIDTH));
+    options.initial_window_size = Some(egui::Vec2::new(WINDOW_HEIGHT, WINDOW_WIDTH));
     eframe::run_native(
         "GUI Menu",
         options,
