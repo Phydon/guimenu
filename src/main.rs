@@ -32,11 +32,16 @@ impl eframe::App for GuiMenu {
                     ui.label("Enter name: ");
                     ui.text_edit_singleline(&mut self.name);
                 });
-                ui.add(egui::Slider::new(&mut self.number, 0..=120).text("number"));
+                ui.add(
+                    egui::Slider::new(&mut self.number, 0..=120).text("number"),
+                );
                 if ui.button("Calculate").clicked() {
                     self.result = calculate_it(self.number);
                 }
-                ui.label(format!("Name: '{}', result {}", self.name, self.result));
+                ui.label(format!(
+                    "Name: '{}', result {}",
+                    self.name, self.result
+                ));
 
                 ui.add_space(PADDING);
 
@@ -46,23 +51,23 @@ impl eframe::App for GuiMenu {
             });
 
             if self.show_confirmation_dialog {
-            // Show confirmation dialog:
-            egui::Window::new("Do you want to quit?")
-                .collapsible(false)
-                .resizable(false)
-                .default_pos(CENTER)
-                .show(ctx, |ui| {
-                    ui.horizontal(|ui| {
-                        if ui.button("Cancel").clicked() {
-                            self.show_confirmation_dialog = false;
-                        }
+                // Show confirmation dialog:
+                egui::Window::new("Do you want to quit?")
+                    .collapsible(false)
+                    .resizable(false)
+                    .default_pos(CENTER)
+                    .show(ctx, |ui| {
+                        ui.horizontal(|ui| {
+                            if ui.button("Cancel").clicked() {
+                                self.show_confirmation_dialog = false;
+                            }
 
-                        if ui.button("Yes!").clicked() {
-                            self.allowed_to_close = true;
-                            frame.close();
-                        }
+                            if ui.button("Yes!").clicked() {
+                                self.allowed_to_close = true;
+                                frame.close();
+                            }
+                        });
                     });
-                });
             }
         });
     }
