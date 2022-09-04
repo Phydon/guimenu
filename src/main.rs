@@ -27,6 +27,9 @@ impl eframe::App for GuiMenu {
             ui.heading("THE Menu Application");
             ui.separator();
 
+            egui::widgets::global_dark_light_mode_buttons(ui);
+            ui.separator();
+
             ui.vertical_centered(|ui| {
                 ui.label(egui::RichText::new("Text can have").color(egui::Color32::from_rgb(110, 255, 110)));
                 ui.colored_label(egui::Color32::from_rgb(128, 140, 255), "color"); // Shortcut version
