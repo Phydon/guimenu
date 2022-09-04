@@ -31,6 +31,9 @@ impl eframe::App for GuiMenu {
             ui.separator();
 
             ui.vertical_centered(|ui| {
+                ui.add_sized([240., 80.], egui::Button::new("Big Button Here"));
+                ui.add_space(PADDING + 10.0);
+
                 ui.label(egui::RichText::new("Text can have").color(egui::Color32::from_rgb(110, 255, 110)));
                 ui.colored_label(egui::Color32::from_rgb(128, 140, 255), "color"); // Shortcut version
                 ui.label("and tooltips.").on_hover_text(
