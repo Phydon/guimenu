@@ -23,11 +23,34 @@ impl eframe::App for GuiMenu {
     }
 
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
+        egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
+            ui.vertical_centered(|ui| {
+                ui.heading("Hello World! From `TopBottomPanel`, that must be before `CentralPanel`!");
+            });
+        });
+
+        egui::TopBottomPanel::bottom("bottom_panel").show(ctx, |ui| {
+            ui.vertical_centered(|ui| {
+                let tooltip_text = "This is an email adress";
+                ui.hyperlink("wasd.qwertz@email.com").on_hover_text(tooltip_text);
+            });
+        });
+
+        egui::SidePanel::left("left_panel").show(ctx, |ui| {
+            egui::containers::ScrollArea::vertical().show(ui, |ui| {
+                for i in 1..=60 {
+                    ui.label(format!("just some txt {}", i as usize));
+                }
+            });
+        });
+
+        egui::SidePanel::right("right_panel").show(ctx, |ui| {
+            egui::widgets::global_dark_light_mode_buttons(ui);
+        });
+
+        // CentralPanel must be added after all other panels!
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.heading("THE Menu Application");
-            ui.separator();
-
-            egui::widgets::global_dark_light_mode_buttons(ui);
             ui.separator();
 
             ui.vertical_centered(|ui| {
@@ -53,16 +76,11 @@ impl eframe::App for GuiMenu {
                 if ui.button("Calculate").clicked() {
                     self.result = calculate_it(self.number);
                 }
+                ui.add_space(PADDING);
                 ui.label(format!(
                     "Name: '{}', result {}",
                     self.name, self.result
                 ));
-
-                ui.add_space(PADDING);
-
-                for i in 1..=60 {
-                    ui.label(format!("just some txt {}", i as usize));
-                }
             });
 
             if self.show_confirmation_dialog {
