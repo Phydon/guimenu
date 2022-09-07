@@ -2,7 +2,7 @@
 
 use eframe::egui;
 
-const WINDOW_HEIGHT: f32 = 480.0;
+const WINDOW_HEIGHT: f32 = 600.0;
 const WINDOW_WIDTH: f32 = 960.0;
 const CENTER: (f32, f32) = (
     (WINDOW_WIDTH - WINDOW_WIDTH * 0.60),
@@ -159,7 +159,7 @@ fn calculate_it(num: u32) -> u32 {
 fn main() {
     let mut options = eframe::NativeOptions::default();
     options.initial_window_size =
-        Some(egui::Vec2::new(WINDOW_HEIGHT, WINDOW_WIDTH));
+        Some(egui::Vec2::new(WINDOW_WIDTH, WINDOW_HEIGHT));
     eframe::run_native(
         "GUI Menu",
         options,
